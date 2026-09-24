@@ -175,6 +175,7 @@ export default defineConfig(({ command, isPreview }) => ({
     strictPort: true,
   },
   resolve: { tsconfigPaths: true },
+  build: { sourcemap: true },
   plugins: [
     pgliteBootstrapPlugin(),
     securityHeadersPlugin(),

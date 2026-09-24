@@ -113,8 +113,10 @@ function PhoneHero() {
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover object-center"
-          src="/media/hero-phone.mp4?v=3"
-          poster="/media/hero-phone-poster.jpg?v=3"
+          src="/media/hero-phone.mp4?v=4"
+          poster="/media/hero-phone-poster.jpg?v=4"
+          width={540}
+          height={960}
           muted
           playsInline
           preload="metadata"

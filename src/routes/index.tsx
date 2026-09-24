@@ -16,8 +16,8 @@ export const Route = createFileRoute("/")({
       },
     ],
     links: [
-      { rel: "preload", as: "image", href: "/media/hero-desk.webp", media: "(min-width: 768px)" },
-      { rel: "preload", as: "image", href: "/media/hero-phone-poster.jpg?v=3", media: "(max-width: 767px)" },
+      { rel: "preload", as: "image", href: "/media/hero-desk.webp", media: "(min-width: 768px)", fetchPriority: "high" },
+      { rel: "preload", as: "image", href: "/media/hero-phone-poster.jpg?v=4", media: "(max-width: 767px)", fetchPriority: "high" },
     ],
   }),
   component: Home,
@@ -357,7 +357,16 @@ function Home() {
             ["/media/pages/walk.jpg", { en: "A parent and child walking on a sidewalk.", es: "Un padre y su hijo caminan por la banqueta." }],
             ["/media/pages/morning.jpg", { en: "A woman sitting at the edge of a bed in the morning.", es: "Una mujer sentada al borde de la cama por la mañana." }],
           ].map(([src, alt]) => (
-            <img key={src as string} src={src as string} alt={tx(alt as { en: string; es: string })} className="aspect-[4/5] w-full object-cover object-center" />
+            <img
+              key={src as string}
+              src={src as string}
+              alt={tx(alt as { en: string; es: string })}
+              width={800}
+              height={1000}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full object-cover object-center"
+            />
           ))}
         </Container>
       </section>
@@ -388,6 +397,10 @@ function Home() {
                 en: "A doctor, a nurse, and a patient talking in an exam room.",
                 es: "Un médico, una enfermera y un paciente hablan en un consultorio.",
               })}
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
               className="aspect-[4/3] w-full bg-[#ebe6de] object-contain"
             />
             <img
@@ -396,6 +409,10 @@ function Home() {
                 en: "A clinician listening to a patient across a table.",
                 es: "Un clínico escucha a un paciente al otro lado de la mesa.",
               })}
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
               className="mt-8 aspect-[4/3] w-full bg-[#ebe6de] object-contain"
             />
           </figure>

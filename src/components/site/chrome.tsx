@@ -155,8 +155,10 @@ function Header({ light = false }: { light?: boolean }) {
       <Container className="flex min-h-16 items-center gap-6 py-2 md:min-h-20">
         <Link to="/" className="shrink-0" aria-label={clinic.name} onClick={() => setOpen(false)}>
           <img
-            src="/media/logo.png"
+            src="/media/logo.webp"
             alt={clinic.name}
+            width={320}
+            height={127}
             className="h-10 w-auto max-w-[13.5rem] object-contain object-left md:h-12 md:max-w-64"
           />
         </Link>
@@ -276,7 +278,7 @@ function Footer() {
     <footer className="border-t border-line bg-cream">
       <Container className="grid gap-0 py-10 md:grid-cols-12 md:gap-8 md:py-14">
         <div className="pb-8 md:col-span-4 md:pb-0">
-          <img src="/media/logo.png" alt="" className="h-14 w-auto" />
+          <img src="/media/logo.webp" alt="" width={320} height={127} className="h-14 w-auto" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
             {tx({
               en: `Formerly ${clinic.former}. A nonprofit community clinic in Reseda.`,
@@ -348,7 +350,7 @@ function Footer() {
             ))}
           </nav>
         </Container>
-        <p className="text-center text-[9px] leading-none tracking-wide text-muted/70">Made by USSCALLISTER LLC</p>
+        <p className="pb-3 text-center text-[11px] leading-none tracking-wide text-ink">Made by USSCALLISTER LLC</p>
       </div>
     </footer>
   );

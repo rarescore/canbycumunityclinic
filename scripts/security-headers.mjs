@@ -2,7 +2,7 @@ const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline' https://js.stripe.com",
+  "script-src 'self' 'unsafe-inline' https://js.stripe.com https://grok.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
