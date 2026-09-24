@@ -4,49 +4,19 @@ import { CallButton, RequestButton } from "@/components/site/ui";
 
 function DesktopHero() {
   const { tx } = useTx();
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!desktop.matches) return;
-    let frame = 0;
-    const paint = () => {
-      frame = 0;
-      const hero = heroRef.current;
-      if (!hero) return;
-      if (!desktop.matches || reduce.matches) {
-        hero.style.removeProperty("--desktop-scroll");
-        return;
-      }
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, -rect.top / rect.height));
-      hero.style.setProperty("--desktop-scroll", String(progress));
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(paint); };
-    desktop.addEventListener("change", schedule);
-    reduce.addEventListener("change", schedule);
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    paint();
-    return () => {
-      cancelAnimationFrame(frame);
-      desktop.removeEventListener("change", schedule);
-      reduce.removeEventListener("change", schedule);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-    };
-  }, []);
-
   return (
-    <section ref={heroRef} className="desktop-clinic-hero relative hidden h-[calc(100svh-6rem)] min-h-[560px] overflow-hidden bg-ink md:block">
+    <section className="relative hidden h-[calc(100svh-6rem)] min-h-[560px] overflow-hidden bg-ink md:block">
       <img
-        src="/media/hero-desk.png"
+        src="/media/hero-desk.webp"
         alt=""
+        width={1672}
+        height={941}
+        fetchPriority="high"
+        decoding="async"
         className="hero-drift absolute inset-0 h-full w-full object-cover object-center"
       />
-      <div className="desktop-hero-shade absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent" />
-      <div className="desktop-hero-content relative flex h-full items-end px-12 pb-10 lg:px-16">
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent" />
+      <div className="relative flex h-full items-end px-12 pb-10 lg:px-16">
         <div>
           <p className="text-[11px] font-medium tracking-[0.22em] text-cream/85 uppercase">
             {tx({ en: "Reseda · Nonprofit clinic", es: "Reseda · Clínica sin fines de lucro" })}
@@ -147,7 +117,7 @@ function PhoneHero() {
           poster="/media/hero-phone-poster.jpg?v=3"
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
         />
         <p
           ref={wordRef}

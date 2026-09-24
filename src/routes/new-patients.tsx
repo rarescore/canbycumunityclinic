@@ -41,7 +41,7 @@ function NewPatientsPage() {
         <ol className="grid gap-8 md:grid-cols-2">
           {steps.map((step) => (
             <li key={step.n} className="border-t border-ink pt-5">
-              <p className="font-serif text-5xl text-ink/15">{step.n}</p>
+              <p className="font-serif text-5xl text-ink/65">{step.n}</p>
               <h2 className="mt-3 font-serif text-3xl">{tx(step.title)}</h2>
               <p className="mt-3 leading-relaxed text-muted">{tx(step.body)}</p>
             </li>

@@ -135,7 +135,7 @@ function ServicesPage() {
         <div className="border-b border-line">
           {items.map((item, index) => (
             <article key={item.title.en} className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-8">
-              <p className="font-serif text-5xl tracking-[-0.05em] text-ink/15 md:col-span-2">0{index + 1}</p>
+              <p className="font-serif text-5xl tracking-[-0.05em] text-ink/65 md:col-span-2">0{index + 1}</p>
               <div className="md:col-span-4">
                 <h2 className="font-serif text-4xl leading-tight">{tx(item.title)}</h2>
                 <Link to="/services/$slug" params={{ slug: offerings[index].slug }} className="mt-3 inline-flex text-sm font-medium text-blue">

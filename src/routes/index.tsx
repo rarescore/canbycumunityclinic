@@ -15,6 +15,10 @@ export const Route = createFileRoute("/")({
           "Community healthcare in Reseda. Primary care, screenings, and a clear next step at Canby Community Clinic, formerly Pura Vida. Call (818) 674-4414. Weekdays 9–5.",
       },
     ],
+    links: [
+      { rel: "preload", as: "image", href: "/media/hero-desk.webp", media: "(min-width: 768px)" },
+      { rel: "preload", as: "image", href: "/media/hero-phone-poster.jpg?v=3", media: "(max-width: 767px)" },
+    ],
   }),
   component: Home,
 });
@@ -242,7 +246,7 @@ function Home() {
               { n: "04", t: { en: "You leave with a next step", es: "Se va con un siguiente paso" }, d: { en: "Treatment, a test, a referral, or another resource.", es: "Tratamiento, una prueba, una referencia u otro recurso." } },
             ].map((item) => (
               <li key={item.n} className="border-t border-ink pt-6">
-                <p className="font-serif text-5xl tracking-[-0.05em] text-ink/15">{item.n}</p>
+                <p className="font-serif text-5xl tracking-[-0.05em] text-ink/65">{item.n}</p>
                 <h3 className="mt-4 font-serif text-3xl">{tx(item.t)}</h3>
                 <p className="mt-3 max-w-md leading-relaxed text-muted">{tx(item.d)}</p>
               </li>
@@ -334,7 +338,7 @@ function Home() {
               { n: "03", t: { en: "You come to suite 6B", es: "Viene a la suite 6B" }, d: { en: "With your questions. You leave knowing the next step, or that the next step is somewhere else.", es: "Con sus preguntas. Se va sabiendo el siguiente paso, o que el siguiente paso es en otro lugar." } },
             ].map((step) => (
               <li key={step.n} className="grid grid-cols-12 gap-4 border-t border-line py-6">
-                <span className="col-span-2 font-serif text-3xl text-ink/25">{step.n}</span>
+                <span className="col-span-2 font-serif text-3xl text-ink/65">{step.n}</span>
                 <div className="col-span-10">
                   <h3 className="font-serif text-2xl">{tx(step.t)}</h3>
                   <p className="mt-2 text-muted">{tx(step.d)}</p>
@@ -464,7 +468,7 @@ function Home() {
               { n: "04", t: { en: "Leave with a plan", es: "Váyase con un plan" }, d: { en: "Treatment, a test, a referral, or another resource.", es: "Tratamiento, una prueba, una referencia u otro recurso." } },
             ].map((step) => (
               <li key={step.n} className="border-t border-line pt-4">
-                <p className="font-serif text-3xl text-ink/25">{step.n}</p>
+                <p className="font-serif text-3xl text-ink/65">{step.n}</p>
                 <h3 className="mt-3 font-serif text-2xl">{tx(step.t)}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{tx(step.d)}</p>
               </li>

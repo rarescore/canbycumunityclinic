@@ -120,7 +120,7 @@ export function AppointmentsPage() {
               },
             ].map((step) => (
               <li key={step.n} className="grid grid-cols-12 gap-4 border-t border-line py-6">
-                <span className="col-span-2 font-serif text-3xl tracking-[-0.04em] text-ink/25 md:col-span-1">{step.n}</span>
+                <span className="col-span-2 font-serif text-3xl tracking-[-0.04em] text-ink/65 md:col-span-1">{step.n}</span>
                 <div className="col-span-10">
                   <h3 className="font-serif text-2xl">{tx(step.t)}</h3>
                   <p className="mt-2 leading-relaxed text-muted">{tx(step.d)}</p>

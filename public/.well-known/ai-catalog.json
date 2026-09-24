@@ -1,0 +1,10 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Canby Community Clinic",
+    "identifier": "puravidacc.org",
+    "documentationUrl": "https://www.puravidacc.org/",
+    "logoUrl": "https://www.puravidacc.org/media/logo.png"
+  },
+  "entries": []
+}

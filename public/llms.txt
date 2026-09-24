@@ -1,0 +1,24 @@
+# Canby Community Clinic
+
+> Nonprofit primary care in Reseda, formerly Pura Vida Community Clinic. Weekdays 9–5. Call (818) 674-4414. 7601 Canby Ave #6B, Reseda, CA 91335.
+
+## Pages
+
+- [Home](https://www.puravidacc.org/): primary care, how to book, and the clinic address
+- [Services](https://www.puravidacc.org/services): checkups, screenings, labs, medicines, and care navigation
+- [Appointments](https://www.puravidacc.org/appointments): request a weekday visit
+- [Insurance](https://www.puravidacc.org/insurance): what to ask before you come
+- [New patients](https://www.puravidacc.org/new-patients): what a first visit is like
+- [Care team](https://www.puravidacc.org/care-team): the roles that run the clinic
+- [Articles](https://www.puravidacc.org/articles): health guides for Reseda and the west Valley
+- [Location](https://www.puravidacc.org/location): map, hours, and parking
+- [Contact](https://www.puravidacc.org/contact): phone and office email
+- [Donate](https://www.puravidacc.org/give): 501(c)(3) gifts
+- [Privacy](https://www.puravidacc.org/privacy): website privacy notice
+- [Terms](https://www.puravidacc.org/terms): website terms
+
+## Contact
+
+Phone: (818) 674-4414
+Email: Info@canbycc.org
+Address: 7601 Canby Ave #6B, Reseda, CA 91335

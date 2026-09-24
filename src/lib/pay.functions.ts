@@ -1,8 +1,27 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { clinic } from "@/lib/clinic";
 import { env } from "@/lib/env.server";
+import { cleanLine, isEmail, safeReturnUrl, tooFast } from "@/lib/guard";
 
 type Cadence = "once" | "monthly";
+
+function callerKey() {
+  try {
+    const header = getRequest().headers.get("x-forwarded-for") ?? "";
+    return (header.split(",")[0] ?? "local").trim().slice(0, 80) || "local";
+  } catch {
+    return "local";
+  }
+}
+
+function requestHost() {
+  try {
+    return getRequest().headers.get("x-forwarded-host") ?? getRequest().headers.get("host");
+  } catch {
+    return null;
+  }
+}
 
 function paypalUrl(amount: number, cadence: Cadence, returnUrl: string) {
   const business = encodeURIComponent(clinic.emailOffice);
@@ -29,7 +48,10 @@ async function stripePost(path: string, secret: string, params: URLSearchParams)
     id?: string;
     latest_invoice?: { payment_intent?: { client_secret?: string } | string };
   };
-  if (!response.ok) throw new Error(json.error?.message || "Payment could not start.");
+  if (!response.ok) {
+    console.error("stripe", path, json.error?.message ?? response.status);
+    throw new Error("Payment could not start.");
+  }
   return json;
 }
 
@@ -42,14 +64,17 @@ export const prepareDonation = createServerFn({ method: "POST" })
     const amount = Math.round(Number(input.amount) * 100) / 100;
     if (!Number.isFinite(amount) || amount < 1 || amount > 100000) throw new Error("Choose an amount.");
     if (input.cadence !== "once" && input.cadence !== "monthly") throw new Error("Choose once or monthly.");
+    const email = cleanLine(input.email ?? "", 120);
+    if (email && !isEmail(email)) throw new Error("Choose an amount.");
     return {
       amount,
       cadence: input.cadence,
-      email: input.email?.trim() || "",
-      returnUrl: input.returnUrl,
+      email,
+      returnUrl: safeReturnUrl(input.returnUrl, requestHost()),
     };
   })
   .handler(async ({ data }) => {
+    if (tooFast(`pay:${callerKey()}`, 10, 10 * 60 * 1000)) throw new Error("Payment could not start.");
     const secret = env("STRIPE_SECRET_KEY");
     const publishableKey = env("STRIPE_PUBLISHABLE_KEY");
     if (!secret || !publishableKey) {

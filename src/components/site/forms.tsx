@@ -109,7 +109,7 @@ export function AppointmentForm() {
     const message = appointmentMessage(state);
     setSending(true);
     try {
-      await sendClinicMail({ data: message });
+      await sendClinicMail({ data: { ...message, trap: state.website } });
       setSent(true);
     } catch {
       setErrors({
@@ -579,6 +579,7 @@ export function MedicalVolunteerForm() {
           inbox: "office",
           subject: "Medical volunteer interest",
           replyTo: email.trim(),
+          trap: website,
           body: [
             "Medical volunteer interest — Canby Community Clinic",
             `Name: ${name.trim()}`,
@@ -692,6 +693,7 @@ export function CommunityVolunteerForm() {
           inbox: "office",
           subject: "Volunteer interest",
           replyTo: email.trim(),
+          trap: website,
           body: [
             "Volunteer interest — Canby Community Clinic",
             `Name: ${name.trim()}`,
@@ -908,6 +910,7 @@ export function GroupVisitForm() {
           inbox: "office",
           subject: `Group visit request — ${org.trim()}`,
           replyTo: email.trim(),
+          trap: website,
           body: [
             "Group visit request — Canby Community Clinic",
             `Type: ${kind}`,

@@ -10,7 +10,7 @@ import { nitro } from "nitro/vite";
 import { grokPwaPlugin } from "./scripts/grok-pwa-plugin.mjs";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { appEnvPlugin } from "./scripts/app-env-plugin.mjs";
-import { isMigrationFile } from "./scripts/migration-plan.mjs";
+import { securityHeaders } from "./scripts/security-headers.mjs";
 
 /** The files `src/lib/db.ts` globs — same directory, same non-recursive scope. */
 function hasGlobbedMigrations(root: string): boolean {
@@ -19,6 +19,24 @@ function hasGlobbedMigrations(root: string): boolean {
   } catch {
     return false;
   }
+}
+
+function securityHeadersPlugin(): Plugin {
+  return {
+    name: "app-builder:security-headers",
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const path = req.url?.split("?")[0] ?? "";
+        if (path.startsWith("/media/") || path.startsWith("/brand/") || path.endsWith(".webp") || path.endsWith(".jpg") || path.endsWith(".png")) {
+          res.setHeader("Cache-Control", "public, max-age=31536000");
+        }
+        for (const [key, value] of Object.entries(securityHeaders())) {
+          res.setHeader(key, value);
+        }
+        next();
+      });
+    },
+  };
 }
 
 /**
@@ -159,6 +177,7 @@ export default defineConfig(({ command, isPreview }) => ({
   resolve: { tsconfigPaths: true },
   plugins: [
     pgliteBootstrapPlugin(),
+    securityHeadersPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.
@@ -171,10 +190,12 @@ export default defineConfig(({ command, isPreview }) => ({
       ? [
           nitro({
             preset: "vercel",
-            // Auto-registers server/middleware/* (the PWA install page +
-            // manifest + head-tag middleware). Nitro v3 defaults serverDir to
-            // false, so removing this silently unwires /?install=1 on deploys.
             serverDir: "./server",
+            routeRules: {
+              "/media/**": { headers: { "cache-control": "public, max-age=31536000" } },
+              "/llms.txt": { headers: { "content-type": "text/markdown; charset=utf-8", "cache-control": "public, max-age=86400" } },
+              "/.well-known/ai-catalog.json": { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=86400" } },
+            },
           }),
         ]
       : []),
