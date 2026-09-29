@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { clinic } from "@/lib/clinic";
 import { useTx } from "@/components/site/i18n";
 import { CallButton, Container, IllustrativeNote, RequestButton } from "@/components/site/ui";
@@ -7,43 +7,82 @@ function clamp(value: number) {
   return Math.min(1, Math.max(0, value));
 }
 
+function reducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 export function ScrollHero() {
   const { tx } = useTx();
   const stageRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [reduced, setReduced] = useState(false);
+  const firstRef = useRef<HTMLParagraphElement>(null);
+  const secondRef = useRef<HTMLParagraphElement>(null);
+  const listenRef = useRef<HTMLSpanElement>(null);
+  const planRef = useRef<HTMLSpanElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReduced(media.matches);
-    apply();
-    media.addEventListener("change", apply);
+    const stage = stageRef.current;
+    if (!stage) return;
 
-    const onScroll = () => {
-      const stage = stageRef.current;
-      if (!stage || media.matches) return;
-      const total = stage.offsetHeight - window.innerHeight;
-      const scrolled = Math.min(Math.max(-stage.getBoundingClientRect().top, 0), Math.max(total, 1));
-      setProgress(total > 0 ? scrolled / total : 0);
+    let raf = 0;
+    let shown = 0;
+    let running = true;
+
+    const apply = (p: number) => {
+      const first = 1 - clamp((p - 0.18) / 0.34);
+      const second = clamp((p - 0.42) / 0.34);
+      if (firstRef.current) firstRef.current.style.opacity = String(first);
+      if (secondRef.current) secondRef.current.style.opacity = String(second);
+      if (listenRef.current) listenRef.current.style.opacity = String(0.35 + first * 0.65);
+      if (planRef.current) planRef.current.style.opacity = String(0.35 + second * 0.65);
+      if (barRef.current) barRef.current.style.width = `${Math.round(p * 100)}%`;
+      stage.style.setProperty("--p", p.toFixed(4));
     };
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    if (reducedMotion()) {
+      apply(1);
+      return;
+    }
+
+    const progress = () => {
+      const total = stage.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(Math.max(-stage.getBoundingClientRect().top, 0), Math.max(total, 1));
+      return total > 0 ? scrolled / total : 0;
+    };
+
+    const tick = () => {
+      raf = 0;
+      if (!running || document.hidden) return;
+      const next = progress();
+      shown += (next - shown) * 0.22;
+      if (Math.abs(next - shown) < 0.001) shown = next;
+      apply(shown);
+      if (shown !== next) raf = requestAnimationFrame(tick);
+    };
+
+    const wake = () => {
+      if (!running || document.hidden || raf) return;
+      raf = requestAnimationFrame(tick);
+    };
+
+    apply(0);
+    window.addEventListener("scroll", wake, { passive: true });
+    window.addEventListener("resize", wake, { passive: true });
+    document.addEventListener("visibilitychange", wake);
+    wake();
+
     return () => {
-      media.removeEventListener("change", apply);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      running = false;
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", wake);
+      window.removeEventListener("resize", wake);
+      document.removeEventListener("visibilitychange", wake);
     };
   }, []);
 
-  const p = reduced ? 1 : progress;
-  const first = 1 - clamp((p - 0.18) / 0.34);
-  const second = clamp((p - 0.42) / 0.34);
-
   return (
     <section ref={stageRef} className="hero-stage bg-ink text-cream" aria-label={tx({ en: "Introduction", es: "Introducción" })}>
-      <div className="hero-pin" style={{ ["--p" as string]: String(p) }}>
+      <div className="hero-pin" style={{ ["--p" as string]: "0" }}>
         <div className="hero-photo absolute inset-0">
           <img
             src="/media/listen.jpg"
@@ -54,15 +93,14 @@ export function ScrollHero() {
             className="h-full w-full object-cover"
             width={1792}
             height={1008}
+            decoding="async"
           />
           <div className="hero-shade absolute inset-0" />
         </div>
-
         <Container className="relative z-10 flex h-full flex-col justify-end pb-28 md:pb-12">
           <p className="hero-rise text-[11px] font-medium tracking-[0.22em] text-green-soft uppercase" style={{ animationDelay: "80ms" }}>
             {tx({ en: "Canby Community Clinic · Reseda", es: "Canby Community Clinic · Reseda" })}
           </p>
-
           <h1 className="sr-only">
             {tx({
               en: "Heard clearly. Then a plan you can follow.",
@@ -70,41 +108,31 @@ export function ScrollHero() {
             })}
           </h1>
           <div className="relative mt-4 min-h-28 max-w-5xl md:min-h-56" aria-hidden>
-            <p className="font-serif text-[2.75rem] tracking-[-0.015em] text-cream md:text-[5.6rem]" style={{ opacity: first }}>
+            <p ref={firstRef} className="font-serif text-[2.75rem] tracking-[-0.015em] text-cream md:text-[5.6rem]" style={{ opacity: 1 }}>
               {tx({ en: "Heard clearly.", es: "Escuchado con claridad." })}
             </p>
-            <p
-              className="absolute inset-x-0 top-0 font-serif text-[2.75rem] tracking-[-0.015em] text-cream md:text-[5.6rem]"
-              style={{ opacity: second }}
-            >
-              {tx({
-                en: "Then a plan you can follow.",
-                es: "Después, un plan que puede seguir.",
-              })}
+            <p ref={secondRef} className="absolute inset-x-0 top-0 font-serif text-[2.75rem] tracking-[-0.015em] text-cream md:text-[5.6rem]" style={{ opacity: 0 }}>
+              {tx({ en: "Then a plan you can follow.", es: "Después, un plan que puede seguir." })}
             </p>
           </div>
-
           <div className="pointer-events-none absolute top-1/3 right-8 hidden flex-col items-end gap-3 lg:flex" aria-hidden>
-            <span className="text-[11px] tracking-[0.22em] uppercase" style={{ opacity: 0.35 + first * 0.65 }}>
+            <span ref={listenRef} className="text-[11px] tracking-[0.22em] uppercase" style={{ opacity: 1 }}>
               01 · {tx({ en: "Listen", es: "Escuchar" })}
             </span>
-            <span className="text-[11px] tracking-[0.22em] uppercase" style={{ opacity: 0.35 + second * 0.65 }}>
+            <span ref={planRef} className="text-[11px] tracking-[0.22em] uppercase" style={{ opacity: 0.35 }}>
               02 · {tx({ en: "A plan", es: "Un plan" })}
             </span>
           </div>
-
           <p className="hero-rise mt-3 max-w-xl text-sm leading-relaxed text-cream/85 md:mt-6 md:text-lg" style={{ animationDelay: "220ms" }}>
             {tx({
               en: "Formerly Pura Vida. A weekday clinic on Canby Avenue — a real conversation about what is happening, and what comes next.",
               es: "Antes Pura Vida. Una clínica de lunes a viernes en Canby Avenue: una conversación real sobre qué pasa y qué sigue.",
             })}
           </p>
-
           <div className="hero-rise mt-4 flex flex-col gap-2 sm:flex-row md:mt-8 md:gap-3" style={{ animationDelay: "340ms" }}>
             <CallButton variant="inverse" />
             <RequestButton variant="quiet" />
           </div>
-
           <div className="mt-4 flex items-end justify-between gap-6 md:mt-8">
             <p className="text-sm text-cream/80">
               {clinic.street}
@@ -114,16 +142,14 @@ export function ScrollHero() {
               </span>
             </p>
             <div className="hidden items-center gap-3 md:flex" aria-hidden>
-              <span className="text-xs tracking-widest text-cream/70 uppercase">
-                {tx({ en: "Scroll", es: "Deslice" })}
-              </span>
+              <span className="text-xs tracking-widest text-cream/70 uppercase">{tx({ en: "Scroll", es: "Deslice" })}</span>
               <span className="relative block h-14 w-px bg-cream/30">
                 <span className="hero-scroll-line absolute inset-x-0 top-0 h-full w-px bg-green-soft" />
               </span>
             </div>
           </div>
           <div className="mt-3 h-px w-full bg-cream/20">
-            <div className="h-px bg-green-soft" style={{ width: `${Math.round(p * 100)}%` }} />
+            <div ref={barRef} className="h-px bg-green-soft" style={{ width: "0%" }} />
           </div>
           <div className="mt-3 hidden max-w-md md:block">
             <IllustrativeNote light />
