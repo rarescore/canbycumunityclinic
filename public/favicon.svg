@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Canby Community Clinic">
+  <rect width="32" height="32" rx="8" fill="#1a4554"/>
+  <path d="M16.2 6.2c1.6 3.4 6.3 5.2 6.3 10.1a6.6 6.6 0 1 1-13.2 0c0-2.8 1.7-4.6 2.9-6.7.8-1.4 1.8-2.4 4-3.4z" fill="#f4f1eb"/>
+  <path d="M16.1 8.4c-.2 4.4-1.4 7.6-1.4 11.8" fill="none" stroke="#1a4554" stroke-width="1.4" stroke-linecap="round"/>
+</svg>
