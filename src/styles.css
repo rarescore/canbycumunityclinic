@@ -2459,3 +2459,283 @@ html {scroll-padding-top:100px} body {font-size:16px} h1,h2,h3,.font-serif {font
   }
 }
 
+
+/* ===== Mobile layout pass (390px phones), Oct 2026 =====
+   Solid readability/spacing/tap-target improvements within the existing
+   component system. Does not change desktop. */
+@media (max-width: 860px) {
+  html { overflow-x: clip; }
+  body { overflow-x: clip; }
+
+  /* Clear the sticky dock + credit so the last footer line stays readable */
+  .site-frame {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .site-credit {
+    padding-bottom: 6px;
+  }
+  .site-credit .layout-container {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    font-size: 12px !important;
+  }
+
+  /* Header: tighter bar, usable language taps, logo that fits */
+  .main-header > .layout-container {
+    min-height: 56px !important;
+    padding-block: 6px !important;
+    padding-inline: 12px !important;
+    gap: 8px !important;
+  }
+  .main-header img {
+    max-width: 118px !important;
+    height: 34px !important;
+  }
+  .main-header button[aria-controls="mobile-menu"] {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .main-header .lang-switch {
+    gap: 4px !important;
+    margin-left: auto !important;
+  }
+  .main-header .lang-switch button {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    /* expand the hit area without growing the visual flag */
+    position: relative !important;
+  }
+  .main-header .lang-switch button::before {
+    content: "";
+    position: absolute;
+    inset: -8px -4px;
+  }
+  .main-header .lang-switch .lang-word {
+    font-size: 8px !important;
+  }
+  #main:not(:has(.hero-film)):not(:has(.editorial-home)) {
+    padding-top: 56px !important;
+  }
+
+  /* Mobile menu: denser, larger taps, less empty scroll */
+  #mobile-menu {
+    max-height: calc(100dvh - 56px) !important;
+  }
+  #mobile-menu a {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size: 17px !important;
+    padding-block: 10px !important;
+  }
+  #mobile-menu .eyebrow,
+  #mobile-menu p[class*="tracking"],
+  #mobile-menu .text-\[11px\],
+  #mobile-menu .text-xs {
+    margin-top: 14px !important;
+    margin-bottom: 4px !important;
+    font-size: 11px !important;
+  }
+  #mobile-menu .layout-container,
+  #mobile-menu > div {
+    padding-bottom: 24px !important;
+  }
+
+  /* Sticky dock: clearer buttons, safe-area aware */
+  .site-dock {
+    padding: 8px 10px max(8px, env(safe-area-inset-bottom)) !important;
+  }
+  .site-dock a {
+    min-height: 48px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+  }
+
+  /* Hero / home film: readable type, stacked CTAs, less wasted height */
+  .hero-film,
+  .editorial-home > .hero-film {
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  .hero-film .hero-copy,
+  .hero-film .layout-container {
+    padding-inline: 16px !important;
+  }
+  .hero-film h1,
+  .editorial-home .hero-film h1 {
+    font-size: clamp(34px, 9vw, 44px) !important;
+    line-height: 1.05 !important;
+    max-width: 14ch !important;
+  }
+  .hero-film p,
+  .hero-film .hero-description {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    max-width: 34ch !important;
+  }
+  .hero-actions,
+  .hero-film .hero-actions,
+  .page-intro .flex:has(.site-action),
+  .page-intro .grid:has(.site-action) {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .hero-actions .site-action,
+  .page-intro .site-action,
+  .neighborhood-hero .site-action {
+    width: 100% !important;
+    min-height: 50px !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+  }
+  .hero-footnote,
+  .hero-film a[href^="mailto"],
+  .hero-film .text-link {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 15px !important;
+  }
+
+  /* Page intros: less top padding, clearer CTAs */
+  .page-intro > .layout-container {
+    padding-block: 28px 20px !important;
+  }
+  .page-intro h1 {
+    font-size: clamp(32px, 8.5vw, 40px) !important;
+    line-height: 1.08 !important;
+  }
+  .page-intro > .layout-container > p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Section spacing: tighter on phone so content arrives sooner */
+  .home-section,
+  .editorial-home section {
+    padding-block: 48px !important;
+  }
+  .section-heading {
+    margin-bottom: 22px !important;
+  }
+  .editorial-home h2,
+  .home-section h2 {
+    font-size: clamp(28px, 7vw, 36px) !important;
+  }
+
+  /* Care paths / service rows: comfortable taps, no sideways jump on hover */
+  .care-path,
+  .care-path:first-child {
+    padding: 18px 0 !important;
+    gap: 10px 12px !important;
+  }
+  .care-path h3 {
+    font-size: 22px !important;
+  }
+  .care-path p {
+    font-size: 14px !important;
+  }
+  .path-link {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  .editorial-home .care-path:hover,
+  .editorial-home .care-path:first-child:hover {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  /* Service / story photos: shorter so cards stack without endless scroll */
+  .story-photo img,
+  .service-tile img,
+  .photo-frame img,
+  #main .aspect-\[4\/3\] img {
+    max-height: 220px !important;
+  }
+  .neighborhood-window {
+    height: 280px !important;
+  }
+
+  /* Forms: large fields and primary buttons */
+  form input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+  form textarea,
+  form select {
+    min-height: 48px !important;
+    font-size: 16px !important; /* avoids iOS zoom */
+    padding-inline: 14px !important;
+  }
+  form textarea {
+    min-height: 120px !important;
+    padding-block: 12px !important;
+  }
+  form button[type="submit"],
+  form .site-action,
+  form button.btn {
+    min-height: 52px !important;
+    width: 100% !important;
+    font-size: 16px !important;
+  }
+  form label > span {
+    font-size: 14px !important;
+  }
+  form.rounded-lg,
+  form.border {
+    padding: 16px !important;
+  }
+
+  /* Footer: readable link taps, single-column on very narrow */
+  .main-footer nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px 16px !important;
+  }
+  .main-footer nav a {
+    min-height: 44px !important;
+    font-size: 13px !important;
+    align-items: center !important;
+  }
+  .main-footer .text-\[11px\],
+  .main-footer .text-xs {
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* FAQ / directory rows already have hover fill; ensure tap height */
+  .faq-list summary,
+  .directory-list summary {
+    min-height: 52px !important;
+    font-size: 17px !important;
+  }
+
+  /* Trust / chat / mailto text links */
+  .trust-line a,
+  a[href^="mailto:"],
+  a[href^="tel:"] {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .main-header .lang-switch button {
+    width: 36px !important;
+    min-width: 36px !important;
+  }
+  .main-header img {
+    max-width: 108px !important;
+  }
+  .hero-film h1,
+  .page-intro h1 {
+    font-size: 32px !important;
+  }
+}

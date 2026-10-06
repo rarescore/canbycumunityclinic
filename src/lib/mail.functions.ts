@@ -19,6 +19,9 @@ export const sendClinicMail = createServerFn({ method: "POST" })
   })
   .handler(async ({ data }) => {
     const to = data.inbox === "office" ? clinic.emailOffice : clinic.emailPatients;
+    // FormSubmit is activated for canbycc.org. Keep that Origin so deliveries
+    // continue after the public hostname moved to puravidacc.org. Activating the
+    // same inboxes for https://www.puravidacc.org would let us drop the override.
     const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
       method: "POST",
       signal: AbortSignal.timeout(15000),
