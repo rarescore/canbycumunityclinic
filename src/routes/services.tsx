@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { clinic } from "@/lib/clinic";
 import { offerings } from "@/lib/offerings";
 import { useTx } from "@/components/site/i18n";
@@ -79,14 +80,14 @@ function ServicesPage() {
       <Container className="pb-8">
         <div className="border-b border-line">
           {offerings.map((item, index) => (
-            <article key={item.slug} className="grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-8">
-              <p className="font-serif text-5xl tracking-[-0.05em] text-ink/15 md:col-span-2">{String(index + 1).padStart(2, "0")}</p>
+            <article key={item.slug} className="service-row grid gap-4 border-t border-line py-12 md:grid-cols-12 md:gap-8">
+              <p className="service-row-num font-serif text-5xl tracking-[-0.05em] text-ink/15 md:col-span-2">{String(index + 1).padStart(2, "0")}</p>
               <div className="md:col-span-4">
                 <h2 className="font-serif text-4xl leading-tight">{tx(item.title)}</h2>
-                <Link to="/services/$slug" params={{ slug: item.slug }} className="mt-3 inline-flex text-sm font-medium text-blue">
+                <Link to="/services/$slug" params={{ slug: item.slug }} className="mt-3 hidden text-sm font-medium text-blue md:inline-flex">
                   {tx({ en: "About this visit", es: "Sobre esta visita", hy: "Այս այցի մասին" })}
                 </Link>
-                <div className="mt-6">
+                <div className="mt-6 hidden md:block">
                   <RequestButton variant="secondary" />
                 </div>
               </div>
@@ -99,6 +100,11 @@ function ServicesPage() {
                     </li>
                   ))}
                 </ul>
+                {/* Phones: one full-row link per service; Request lives in the sticky dock. */}
+                <Link to="/services/$slug" params={{ slug: item.slug }} className="service-row-link md:hidden">
+                  {tx({ en: "About this visit", es: "Sobre esta visita", hy: "Այս այցի մասին" })}
+                  <ArrowRight className="size-4" aria-hidden />
+                </Link>
               </div>
             </article>
           ))}
