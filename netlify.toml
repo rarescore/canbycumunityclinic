@@ -1,0 +1,19 @@
+# Netlify build settings (replaces Vercel hosting).
+#
+# Nitro's "netlify" preset (vite.config.ts) writes:
+#   dist/                                  static client assets + generated _headers
+#   .netlify/functions-internal/server/    SSR server function (path "/*", preferStatic),
+#                                          picked up automatically by Netlify; no functions dir needed.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+  # Ported from vercel.json installCommand "npm install --omit=dev --no-audit --no-fund".
+  # Netlify runs "npm install" itself; NPM_FLAGS appends these flags.
+  NPM_FLAGS = "--omit=dev --no-audit --no-fund"
+
+# Apex -> www: set www.puravidacc.org as the primary domain in Netlify (it then
+# 301-redirects the bare domain automatically, like Vercel's 308).
