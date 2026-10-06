@@ -2716,6 +2716,15 @@ html {scroll-padding-top:100px} body {font-size:16px} h1,h2,h3,.font-serif {font
     font-size: 17px !important;
   }
 
+  /* Inline service/card text links that were ~20px tall */
+  a.mt-3.inline-flex.text-sm,
+  .service-tile a,
+  .care-path a.path-link,
+  a.text-sm.font-medium.text-blue {
+    min-height: 44px !important;
+    align-items: center !important;
+  }
+
   /* Trust / chat / mailto text links */
   .trust-line a,
   a[href^="mailto:"],
