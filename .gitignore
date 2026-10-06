@@ -10,3 +10,4 @@ screenshots
 .env
 .env.*
 .netlify
+dist
