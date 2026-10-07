@@ -4,8 +4,8 @@ title_tag: "What to bring to a first visit in Reseda"
 meta_description: "A first visit at Canby Community Clinic in Reseda goes better with the bottles, the pharmacy name, two questions, and any record that would change the plan."
 primary_keyword: "first clinic visit what to bring"
 secondary_keywords: ["new patient visit", "what to bring to the doctor"]
-hero_image: "/images/first-visit.jpg"
-hero_alt: "Medicine bottles being packed into a clear bag."
+hero_image: "/media/articles/clinic-front-reception-desk.webp"
+hero_alt: "The front reception desk at Canby Community Clinic, where patients check in."
 canonical: "https://canbycc.org/articles/first-visit"
 ---
 

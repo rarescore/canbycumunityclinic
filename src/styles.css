@@ -3114,3 +3114,9 @@ html {scroll-padding-top:100px} body {font-size:16px} h1,h2,h3,.font-serif {font
 @media (max-width: 860px) and (prefers-reduced-motion: reduce) {
   #main a.site-action, .site-dock a, form button { transition: none !important; }
 }
+
+/* Clinic aerial in the "Before you come" reel: keep the clinic and entrance labels in frame */
+.film-card img[src*="canby-clinic-aerial"] { object-position: 60% 50% !important; }
+@media (max-width: 860px) {
+  .film-card img[src*="canby-clinic-aerial"] { object-position: 42% 50% !important; }
+}

@@ -27,6 +27,7 @@ function parse(raw: string): Article {
   const meta = match?.[1] ?? "";
   const markdown = (match?.[2] ?? raw).trim();
   const slug = field(meta, "slug");
+  const heroImage = field(meta, "hero_image");
   const lines = markdown.split("\n");
   const title = (lines.find((line) => line.startsWith("# ")) ?? "").replace(/^# /, "").trim();
   const withoutTitle = lines.filter((line) => !line.startsWith("# ")).join("\n").trim();
@@ -43,7 +44,7 @@ function parse(raw: string): Article {
     seoDescription: field(meta, "meta_description"),
     title,
     lede,
-    image: `/media/articles/${slug}.png`,
+    image: heroImage.startsWith("/media/") ? heroImage : `/media/articles/${slug}.png`,
     imageAlt: field(meta, "hero_alt"),
     body,
     related,

@@ -74,11 +74,11 @@ const frames: Frame[] = [
   },
   {
     to: "/location",
-    src: "/media/clinic/valley-street.png",
+    src: "/media/clinic/canby-clinic-aerial-suite-6b.webp",
     alt: {
-      en: "A residential street in the San Fernando Valley. Not the clinic building.",
-      es: "Una calle residencial del Valle de San Fernando. No es el edificio de la clínica.",
-      hy: "Բնակելի փողոց San Fernando Valley-ում։ Կլինիկայի շենքը չէ։",
+      en: "Aerial view of the Canby Community Clinic building, with Suite 6B, the parking lot entrance, and the main entrance marked.",
+      es: "Vista aérea del edificio de Canby Community Clinic, con la Suite 6B, la entrada del estacionamiento y la entrada principal señaladas.",
+      hy: "Canby Community Clinic-ի շենքը վերևից՝ նշված են Suite 6B-ն, ավտոկայանատեղիի մուտքը և գլխավոր մուտքը։",
     },
     title: { en: "Location", es: "Ubicación", hy: "Հասցե" },
     line: {

@@ -4,8 +4,8 @@ title_tag: "911, urgent care, or a weekday clinic in Reseda"
 meta_description: "Chest pain and stroke signs belong with 911. A sprain tonight may be urgent care. A checkup belongs at Canby Community Clinic in Reseda."
 primary_keyword: "urgent care or primary care"
 secondary_keywords: ["when to call 911", "weekday clinic visit"]
-hero_image: "/images/urgent-or-clinic.jpg"
-hero_alt: "A phone face-down on a kitchen counter."
+hero_image: "/media/articles/clinic-hallway-exam-rooms.webp"
+hero_alt: "The clinic hallway, with an eye chart on the far wall and exam room doors on both sides."
 canonical: "https://canbycc.org/articles/urgent-or-clinic"
 ---
 

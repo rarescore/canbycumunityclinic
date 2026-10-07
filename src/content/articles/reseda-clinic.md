@@ -4,8 +4,8 @@ title_tag: "Canby Community Clinic in Reseda"
 meta_description: "Canby Community Clinic is at 7601 Canby Ave #6B, Reseda. Weekdays 9 to 5. Formerly Pura Vida. What kind of visit this office is for."
 primary_keyword: "clinic in Reseda"
 secondary_keywords: ["Canby Community Clinic", "Pura Vida Reseda"]
-hero_image: "/images/reseda-clinic.jpg"
-hero_alt: "A residential street in the west San Fernando Valley."
+hero_image: "/media/clinic/canby-clinic-aerial-suite-6b.webp"
+hero_alt: "Aerial view of the Canby Community Clinic building on Canby Ave, with Suite 6B, the parking lot entrance, and the main entrance marked."
 canonical: "https://canbycc.org/articles/reseda-clinic"
 ---
 
