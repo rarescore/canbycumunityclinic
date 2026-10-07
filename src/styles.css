@@ -3118,5 +3118,6 @@ html {scroll-padding-top:100px} body {font-size:16px} h1,h2,h3,.font-serif {font
 /* Clinic aerial in the "Before you come" reel: keep the clinic and entrance labels in frame */
 .film-card img[src*="canby-clinic-aerial"] { object-position: 60% 50% !important; }
 @media (max-width: 860px) {
-  .film-card img[src*="canby-clinic-aerial"] { object-position: 42% 50% !important; }
+  /* phones get the 4:3 close crop via <picture>; show it whole */
+  .film-card img[src*="canby-clinic-aerial"] { object-position: 50% 50% !important; }
 }

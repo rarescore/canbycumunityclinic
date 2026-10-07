@@ -6,6 +6,8 @@ import { useTx, type L } from "@/components/site/i18n";
 type Frame = {
   to: "/appointments" | "/visit" | "/location" | "/insurance" | "/articles";
   src: string;
+  /** Optional close crop served to phones (max-width 860px) via picture/source. */
+  srcMobile?: string;
   alt: L;
   title: L;
   line: L;
@@ -75,6 +77,7 @@ const frames: Frame[] = [
   {
     to: "/location",
     src: "/media/clinic/canby-clinic-aerial-suite-6b.webp",
+    srcMobile: "/media/clinic/canby-clinic-aerial-suite-6b-mobile.webp",
     alt: {
       en: "Aerial view of the Canby Community Clinic building, with Suite 6B, the parking lot entrance, and the main entrance marked.",
       es: "Vista aérea del edificio de Canby Community Clinic, con la Suite 6B, la entrada del estacionamiento y la entrada principal señaladas.",
@@ -239,7 +242,14 @@ export function FilmReel() {
       <div className="film-track">
         {frames.map((frame) => (
           <Link key={frame.src} to={frame.to} className="film-card">
-            <img src={frame.src} alt={tx(frame.alt)} width={1728} height={1152} loading="lazy" decoding="async" />
+            {frame.srcMobile ? (
+              <picture className="contents">
+                <source media="(max-width: 860px)" srcSet={frame.srcMobile} width={944} height={708} />
+                <img src={frame.src} alt={tx(frame.alt)} width={1728} height={1152} loading="lazy" decoding="async" />
+              </picture>
+            ) : (
+              <img src={frame.src} alt={tx(frame.alt)} width={1728} height={1152} loading="lazy" decoding="async" />
+            )}
             <p className="film-caption">
               <strong>{tx(frame.title)}</strong>
               <span>{tx(frame.line)}</span>
