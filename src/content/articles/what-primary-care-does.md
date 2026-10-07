@@ -4,8 +4,8 @@ title_tag: "What a primary care visit in Reseda includes"
 meta_description: "From the reason you came to the plan you leave with. What a weekday primary care visit at Canby Community Clinic in Reseda covers."
 primary_keyword: "what primary care does"
 secondary_keywords: ["primary care visit", "general doctor visit"]
-hero_image: "/images/what-primary-care-does.jpg"
-hero_alt: "A stethoscope and a notebook on a desk."
+hero_image: "/media/articles/clinic-exam-room.webp"
+hero_alt: "Exam Room 3 at the clinic, with an exam chair, a window, and a wall-mounted diagnostic set."
 canonical: "https://canbycc.org/articles/what-primary-care-does"
 ---
 

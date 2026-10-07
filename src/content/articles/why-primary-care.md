@@ -4,8 +4,8 @@ title_tag: "Why a regular clinic in Reseda is worth it"
 meta_description: "A regular clinic in Reseda is the place that still has last year's note. What that changes for medicines, screenings, and the next visit."
 primary_keyword: "why primary care"
 secondary_keywords: ["regular doctor", "primary care visit"]
-hero_image: "/images/why-primary-care.jpg"
-hero_alt: "A person writing a short list before a clinic visit."
+hero_image: "/media/articles/clinic-counter-intake-forms.webp"
+hero_alt: "Patient intake forms and a pen on a clinic counter, with an exam stool and tray behind."
 canonical: "https://canbycc.org/articles/why-primary-care"
 ---
 

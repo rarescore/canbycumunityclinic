@@ -72,7 +72,7 @@ function ArticlePage() {
       </header>
       <Container className="max-w-3xl pb-8">
         <figure className="mt-8">
-          <img src={article.image} alt={article.imageAlt} className="mx-auto max-h-[72vh] w-full bg-[#ebe6de] object-contain" />
+          <img src={article.image} alt={article.imageAlt} width={1600} height={900} className="mx-auto max-h-[72vh] w-full bg-[#ebe6de] object-contain" />
         </figure>
         <ArticleBody markdown={article.body} />
       </Container>

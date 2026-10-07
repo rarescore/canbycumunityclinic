@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
+import { Phone } from "lucide-react";
 import { useTx } from "@/components/site/i18n";
 import { RequestButton } from "@/components/site/ui";
 import { ChatWithUs } from "@/components/site/clinic-chat";
@@ -84,6 +85,7 @@ export function CommunityLapse() {
           <div className="hero-film-actions">
             <RequestButton variant="primary" />
             <a className="hero-phone" href={`tel:${clinic.phoneTel}`}>
+              <Phone className="size-4 md:hidden" aria-hidden />
               {clinic.phoneDisplay}
             </a>
             <ChatWithUs inline />

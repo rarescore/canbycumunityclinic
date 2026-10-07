@@ -32,7 +32,7 @@ export function LocationPage() {
       />
       <Container className="grid gap-10 py-16 md:grid-cols-2 md:py-24">
         <div>
-          <img src="/media/clinic/valley-street.png" alt={tx({ en: "A residential street in the west Valley. Not the clinic building.", es: "Una calle residencial del oeste del Valle. No es el edificio de la clínica.", hy: "Բնակելի փողոց արևմտյան Valley-ում։ Կլինիկայի շենքը չէ։" })} className="mb-6 aspect-[16/10] w-full bg-[#ebe6de] object-contain" />
+          <img src="/media/clinic/canby-clinic-aerial-suite-6b.webp" alt={tx({ en: "Aerial view of the Canby Community Clinic building, with Suite 6B, the parking lot entrance, and the main entrance marked.", es: "Vista aérea del edificio de Canby Community Clinic, con la Suite 6B, la entrada del estacionamiento y la entrada principal señaladas.", hy: "Canby Community Clinic-ի շենքը վերևից՝ նշված են Suite 6B-ն, ավտոկայանատեղիի մուտքը և գլխավոր մուտքը։" })} className="mb-6 aspect-[16/10] w-full bg-[#ebe6de] object-contain" />
           <p className="font-serif text-3xl">
             {clinic.street}
             <span className="mt-1 block text-xl text-muted">{clinic.city}</span>

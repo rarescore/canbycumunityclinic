@@ -9,3 +9,5 @@ screenshots
 *.log
 .env
 .env.*
+.netlify
+dist
